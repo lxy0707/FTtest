@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h3>登录</h3>
+        账号：<input id="ZH" type="text" />
+        密码：<input id="PWD" type="text" />
+           <input id="Button1" type="button" value="登录"  onclick="Login()"/>
+    </div>
+</body>
+</html>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    function Login() {
+        if ($("#ZH").val() == "" || $("#PWD").val() == "") {
+            alert("请输入完整信息！");
+        } else if ($("#ZH").val() != "" && $("#PWD").val() != "") {
+            $.ajax({
+                type: "post",
+                url: "/FT/Login",
+                data:"{name:'" + $("#ZH").val() + "',pwd:'" + $("#PWD").val() + "'}",
+                //data: "{name:'" + $("#ZH").val()+"',}",
+                dataType: "json",
+                contentType: "application/json",
+                success: function (re) {
+                    //alert(re);
+                    if (re > 0) {
+                        alert("登录成功" );
+                        window.location.href = '/FT/Show';
+                    } else {
+                        alert("登录失败");
+                    }
+                }, error: function (ex) {
+                    alert(ex.responseText);
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Show</title>
+</head>
+<body>
+    <div id="box" style="width:1000px;height:700px; margin-left:200px;"> 
+        
+    </div>
+    <div id="box1" style="margin-left: 200px;"></div>
+</body>
+</html>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+        SelectNew();
+    });
+    function SelectNew() {
+        $.ajax({
+            type: "post",
+            url: "/FT/SelectNew",
+            data: "{}",
+            //data: "{name:'" + $("#ZH").val()+"',}",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (re) {
+                $.each(re, function (index, data) {
+                    $("#box").append('<h2>' + data.newBT + '</h2><p>' + data.newDay + '</p><p style="color:red;" >总浏览  ' + ((data.gtCount) + (data.hfCount)) + '</p><div style="margin-left:200px;width:500px;height:250px; "><p>' + data.newZT + '</p></div><p style="margin-left:200px;">作者：  ' + data.newZZ + '</p>');
+                    $("#box1").append('<span>跟帖</span>  <span style="color:red;">' + data.gtCount + '</span></br><span>参与</span>  <span style="color:red;">' + ((data.gtCount) + (data.hfCount))+'</p>')
+                });
+               
+            }, error: function (ex) {
+                alert(ex.responseText);
+            }
+        });
+    }
+</script>
