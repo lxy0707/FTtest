@@ -53,5 +53,9 @@ namespace FTtest.Controllers
         {
             return Json(FTInfoManager.SelctGT(), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult SelctGTT()
+        {
+            return Json(FTInfoManager.SelctGT(), JsonRequestBehavior.AllowGet);
+        }
     }
 }
